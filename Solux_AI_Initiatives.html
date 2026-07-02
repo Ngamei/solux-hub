@@ -71,7 +71,37 @@
   .sp3{background:var(--sp3-bg);color:var(--sp3-c);}
 
   /* MAIN */
-  #main{margin-right:var(--sb);}
+  #main{margin-right:var(--sb);transition:margin-right .25s ease;}
+
+/* SIDEBAR TOGGLE BUTTON */
+#sb-toggle{
+  position:fixed;
+  right:0;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:150;
+  width:22px;
+  height:48px;
+  background:var(--navy);
+  border:none;
+  border-radius:4px 0 0 4px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-size:0.75rem;
+  transition:right .25s ease, background .15s;
+  box-shadow:-2px 0 6px rgba(28,32,48,.18);
+}
+#sb-toggle:hover{background:var(--steel);}
+#sb-toggle .arrow{display:inline-block;transition:transform .25s;}
+
+/* Hidden state */
+body.sb-hidden #sidebar{transform:translateX(100%);transition:transform .25s ease;}
+body.sb-hidden #main{margin-right:0;}
+body.sb-hidden #sb-toggle .arrow{transform:rotate(180deg);}
+#sidebar{transition:transform .25s ease;}
 
   /* HEADER */
   .hdr{background:var(--white);padding:14px 18px 12px;border-bottom:3px solid var(--doc-accent);display:flex;align-items:center;justify-content:space-between;}
@@ -216,6 +246,11 @@ window.addEventListener('load',function(){
     <a href="Style_Guide.html">Style Guide</a>
   </div>
 </div>
+
+<!-- SIDEBAR TOGGLE BUTTON -->
+<button id="sb-toggle" onclick="document.body.classList.toggle('sb-hidden')" title="Toggle sidebar">
+  <span class="arrow">&#8250;</span>
+</button>
 
 <div id="sidebar">
   <div class="sb-title">AI &amp; Product Initiatives</div>
