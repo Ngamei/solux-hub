@@ -151,7 +151,37 @@
     display: grid;
     grid-template-columns: 210px 1fr;
     min-height: calc(100vh - 120px);
+    transition: grid-template-columns .25s ease;
   }
+
+  /* SIDEBAR TOGGLE BUTTON */
+  #sb-toggle {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 150;
+    width: 22px;
+    height: 48px;
+    background: var(--charcoal, #1C2030);
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 0.75rem;
+    transition: background .15s;
+    box-shadow: 2px 0 6px rgba(28,32,48,.18);
+  }
+  #sb-toggle:hover { background: #4A6FA5; }
+  #sb-toggle .arrow { display: inline-block; transition: transform .25s; }
+
+  /* Hidden state */
+  body.sb-hidden .layout { grid-template-columns: 0 1fr; }
+  body.sb-hidden .sidebar { overflow: hidden; padding: 0; }
+  body.sb-hidden #sb-toggle .arrow { transform: rotate(180deg); }
 
   /* ── SIDEBAR ── */
   .sidebar {
@@ -552,6 +582,11 @@
 </header>
 
 <div class="layout">
+
+<!-- SIDEBAR TOGGLE BUTTON -->
+<button id="sb-toggle" onclick="document.body.classList.toggle('sb-hidden')" title="Toggle sidebar">
+  <span class="arrow">&#8249;</span>
+</button>
 
 <!-- SIDEBAR -->
 <nav class="sidebar">
