@@ -4,5 +4,6 @@
   "redirects": [
     { "source": "/", "destination": "/Solux" }
   ],
-  "buildCommand": "node inject-hypothesis.js"
+  "buildCommand": "node inject-hypothesis.js",
+  "outputDirectory": "."
 }
