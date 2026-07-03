@@ -193,13 +193,13 @@ tr:nth-child(even) td{background:var(--c04);}
   <a href="#s0">Overview</a>
   <a href="#s1">1. Company Profile</a>
   <a href="#s2">2. Workflows</a>
-  <a class="sub" href="#w1">2.1 Lead Intake</a>
+  <a class="sub" href="#w1">2.1 Lead Intake &amp; Marketing</a>
+  <a class="sub" href="#w7" style="padding-left:34px;font-size:0.68rem;">↳ Public Tenders (Tender Monitoring)</a>
   <a class="sub" href="#w2">2.2 Sales Qualification</a>
-  <a class="sub" href="#w3">2.3 Study Lab</a>
+  <a class="sub" href="#w3">2.3 Study Lab <span style="font-size:0.6rem;color:var(--c32);">P02</span></a>
   <a class="sub" href="#w4">2.4 Quotation ⚠️</a>
   <a class="sub" href="#w5">2.5 Partner Channel</a>
   <a class="sub" href="#w6">2.6 After-Sales</a>
-  <a class="sub" href="#w7">2.7 Tender Monitoring</a>
   <a href="#s3">3. Tech Stack</a>
   <a href="#s4">4. CRM / ERP</a>
   <a class="sub" href="#sbm">4b. Solux_byMehdi 🆕</a>
@@ -253,10 +253,11 @@ tr:nth-child(even) td{background:var(--c04);}
     <thead><tr><th>Section</th><th>Contents</th><th>Links to AI Initiatives</th></tr></thead>
     <tbody>
       <tr><td><strong>1. Company</strong></td><td>Identity, global footprint (7 offices), product families, revenue model</td><td>—</td></tr>
-      <tr><td><strong>2. Workflows</strong></td><td>7 operational workflows — current state, pain point, severity</td><td>P01, P02, P04</td></tr>
+      <tr><td><strong>2. Workflows</strong></td><td>6 operational workflows — current state, pain point, severity (Tender Monitoring merged into 2.1 Lead Intake)</td><td>P01, P02 (Phase 1+2)</td></tr>
       <tr><td><strong>3. Tech Stack</strong></td><td>All identified systems and their integration status</td><td>P05, P07</td></tr>
-      <tr><td><strong>4. CRM / ERP</strong></td><td>What exists vs what's missing per module</td><td>P01, P02, P04</td></tr>
-      <tr><td><strong>5. AI Roadmap</strong></td><td>8 priorities ranked by ROI with timeline and links</td><td>All 7 projects</td></tr>
+      <tr><td><strong>4. CRM / ERP</strong></td><td>What exists vs what's missing per module</td><td>P01, P02</td></tr>
+      <tr><td><strong>4b. Solux_byMehdi</strong> <span class="tag tsbm">NEW</span></td><td>New platform overview (02 Jul 2026) — what it is, scope map, gaps, 6 open questions, update log</td><td>P01, P02, P05</td></tr>
+      <tr><td><strong>5. AI Roadmap</strong></td><td>8 priorities ranked by ROI with timeline and links</td><td>All 5 projects</td></tr>
       <tr><td><strong>6. First 90 Days</strong></td><td>Sprint plan — what to do and when</td><td>P01, P02</td></tr>
     </tbody>
   </table></div>
@@ -324,13 +325,12 @@ tr:nth-child(even) td{background:var(--c04);}
   <div class="tw"><table>
     <thead><tr><th>Workflow</th><th>Current State</th><th>Key Pain Point</th><th>Severity</th></tr></thead>
     <tbody>
-      <tr><td><strong>2.1 Lead Intake</strong></td><td>10+ channels, manually reviewed, often copied to Excel</td><td>No automation, no classification, no dashboard</td><td class="sev-hi">HIGH</td></tr>
+      <tr><td><strong>2.1 Lead Intake &amp; Marketing</strong><span style="display:block;font-size:0.68rem;color:var(--c48);font-weight:400;">↳ includes Public Tenders sub-channel</span></td><td>10+ channels, manually reviewed, often copied to Excel<br><span style="font-size:0.72rem;color:var(--c48);">Tenders: Gavin's MVP, manual trigger only</span></td><td>No automation, no classification, no dashboard<br><span style="font-size:0.72rem;color:var(--c48);">Tenders: not scheduled, not CRM-integrated</span></td><td class="sev-hi">HIGH</td></tr>
       <tr><td><strong>2.2 Sales Qualification</strong></td><td>Manual, no structured project form</td><td>Incomplete data reaches engineering → back-and-forth</td><td class="sev-hi">HIGH</td></tr>
       <tr><td><strong>2.3 Study Lab</strong></td><td>8-step process: Dialux + PVGIS done separately</td><td>Same data entered multiple times; archive not searchable</td><td class="sev-hi">HIGH</td></tr>
       <tr><td><strong>2.4 Quotation ⚠️</strong></td><td>Manual Excel/Word, sent by email</td><td>No versioning, no approval, no follow-up</td><td class="sev-hi">HIGH</td></tr>
       <tr><td><strong>2.5 Partner Channel</strong></td><td>Ad hoc, contact form inquiries</td><td>No pipeline tracking, unclear territory ownership</td><td class="sev-md">MED</td></tr>
       <tr><td><strong>2.6 After-Sales</strong></td><td>WhatsApp / email, no case system</td><td>No diagnosis history, warranty status unclear</td><td class="sev-md">MED</td></tr>
-      <tr><td><strong>2.7 Tender Monitoring</strong></td><td>Gavin's MVP — manual trigger only</td><td>Not scheduled, not CRM-integrated</td><td class="sev-md">MED</td></tr>
     </tbody>
   </table></div>
 </div>
@@ -385,6 +385,70 @@ tr:nth-child(even) td{background:var(--c04);}
       </div>
     </div>
   </div>
+
+  <span class="anchor" id="w7"></span>
+  <h2 style="margin-top:20px;">Sub-Channel — Public Tenders (Tender Monitoring)</h2>
+  <p style="font-size:0.82rem;color:var(--c68);margin-bottom:8px;">Merged in per Klairs, 3 Jul 2026 — tenders are a lead channel, not a separate workflow. Same intake → qualify → prioritize pattern as the rest of 2.1, just sourced from J360 and public procurement portals instead of the website, JivoChat, or ads.</p>
+
+  <h3>The Tool's Role in Sales Terms</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Sales Concept</th><th>Tender Tool Meaning</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Lead</strong></td><td>A tender that may match Solux</td></tr>
+      <tr><td><strong>Qualified lead</strong></td><td>A tender that matches Solux's products, market, deadline, and requirements</td></tr>
+      <tr><td><strong>Opportunity</strong></td><td>A tender Solux decides to pursue</td></tr>
+      <tr><td><strong>Pipeline</strong></td><td>List of tenders being reviewed, prepared, submitted, won, or lost</td></tr>
+      <tr><td><strong>CRM record</strong></td><td>The tender saved with buyer, country, deadline, value, documents, and next action</td></tr>
+    </tbody>
+  </table></div>
+  <p style="font-size:0.83rem;line-height:1.6;margin-bottom:8px;">So yes, the tool supports lead generation — but for a very specific channel: public tenders. Better positioning: <strong>a tender intelligence tool that helps Solux discover, qualify, and prioritize public procurement opportunities.</strong></p>
+
+  <div class="sug"><div class="snum">1 · Discover</div><p>Find tenders from J360 and official procurement portals.</p></div>
+  <div class="sug"><div class="snum">2 · Qualify</div><p>Is it in a priority country? Does it match Solux's product portfolio? Is the deadline realistic? Are the technical requirements suitable? Is the project size worth pursuing?</p></div>
+  <div class="sug"><div class="snum">3 · Prioritize</div><p>High-value tender, strong product fit, good country/market, buyer with relevant history, lower competition risk, clear funding source.</p></div>
+
+  <div class="box"><div class="box-bar" style="background:var(--doc-accent)"></div><div class="box-body">
+    <strong>How to explain it to the team</strong>
+    <p><em>"This tool helps Solux turn public tender data into qualified sales opportunities. It searches J360 and official procurement sources, reads the tender documents with AI, extracts the important details, and helps the team decide which opportunities are worth pursuing."</em></p>
+  </div></div>
+  <span class="cite">Source: Klairs — positioning confirmation, 3 Jul 2026</span>
+
+  <h3>Current State — Gavin's MVP (7-Step Workflow)</h3>
+  <div class="two-col">
+    <div class="col-src">
+      <span class="col-label lbl-src">📄 Current State</span>
+      <div class="flow">
+        <div class="flow-step"><div class="flow-num">1</div><div class="flow-text">User launches a search <strong>manually through Claude</strong></div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step"><div class="flow-num">2</div><div class="flow-text">Application retrieves tenders from J360 for a selected period</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step"><div class="flow-num">3</div><div class="flow-text">For each tender, follows the official links provided by J360</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step"><div class="flow-num">4</div><div class="flow-text">Downloads available tender documents</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step"><div class="flow-num">5</div><div class="flow-text">Claude reads and analyzes the documentation</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step"><div class="flow-num">6</div><div class="flow-text">Relevant information is extracted</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step"><div class="flow-num">7</div><div class="flow-text">Application classifies and organizes opportunities for review</div></div>
+      </div>
+      <p>Gaps identified: manual trigger, no schedule, no CRM integration, scoring is relatively simple.</p>
+      <span class="cite">Source: <span class="tag tm">MEHDI</span> Tender Intelligence Tool – Handover Overview (Gavin's file)</span>
+    </div>
+    <div class="col-sug">
+      <span class="col-label lbl-sug">💡 Claude's Suggestions</span>
+      <a class="xlink" href="Solux_AI_Initiatives.html#tender-subchannel">→ See Tender Intelligence detail (inside P01)</a>
+      <div class="sug"><div class="snum"><span class="pill pill-auto">AUTOMATE</span> Remove the Manual Trigger</div>
+        <p>Replace Step 1 with a cron job (n8n scheduled, weekdays 7am). The search runs automatically. Zero human action required to keep the pipeline populated with tender intelligence.</p>
+      </div>
+      <div class="sug"><div class="snum"><span class="pill pill-ai">AI LAYER</span> Structured Scoring</div>
+        <p>Rewrite the Claude prompt to return structured JSON per tender: <code>product_fit</code> (0–10), <code>geography_fit</code> (0–10), <code>scale_fit</code> (0–10), <code>eligibility</code> (Yes/No/Unclear), <code>deadline_days</code>, <code>recommended_action</code>. Total score → auto-action.</p>
+      </div>
+      <div class="sug"><div class="snum"><span class="pill pill-crm">CRM EDIT</span> Auto-Create Tender Opportunity</div>
+        <p>Score ≥ 7/10 → auto-create CRM Tender record + notify relevant regional sales manager. Score &lt; 7 → logged in archive only. Sales team reviews in CRM dashboard, not inside the Claude interface.</p>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- W2 -->
@@ -419,6 +483,10 @@ tr:nth-child(even) td{background:var(--c04);}
 <div class="section section-alt" id="w3">
   <span class="anchor"></span>
   <h1>2.3 Study Lab (Engineering)</h1>
+  <div class="box"><div class="box-bar" style="background:var(--navy)"></div><div class="box-body">
+    <strong style="color:var(--navy)">Study Lab Update — Confirmed by Klairs, 3 Jul 2026</strong>
+    <p>Study Lab is now a single merged entry in the AI Initiatives doc (P02): <a href="Solux_AI_Initiatives.html#t-p02" style="color:var(--navy);font-weight:bold;">Phase 1: Lighting Design</a> (steps 1–3, 7–8 below; active, under review) + <a href="Solux_AI_Initiatives.html#study-lab-phase2" style="color:var(--navy);font-weight:bold;">Phase 2: Energy Automation</a> (steps 4–6; future, depends on Phase 1 + Product Knowledge Hub). This section already covers the full 8-step workflow as one product — no restructuring needed here, just confirming the framing matches.</p>
+  </div></div>
   <div class="two-col">
     <div class="col-src">
       <span class="col-label lbl-src">📄 Current State — 8-Step Process</span>
@@ -444,8 +512,8 @@ tr:nth-child(even) td{background:var(--c04);}
     </div>
     <div class="col-sug">
       <span class="col-label lbl-sug">💡 Claude's Suggestions</span>
-      <a class="xlink" href="Solux_AI_Initiatives.html#t-p02">→ See P02 Study Platform</a>
-      <a class="xlink" href="Solux_AI_Initiatives.html#t-p03">→ See P03 Automated Energy Study</a>
+      <a class="xlink" href="Solux_AI_Initiatives.html#t-p02">→ See P02 Study Lab — Phase 1</a>
+      <a class="xlink" href="Solux_AI_Initiatives.html#study-lab-phase2">→ See P02 Study Lab — Phase 2</a>
       <div class="sug"><div class="snum"><span class="pill pill-int">INTEGRATE</span> Automate Steps 4–6</div>
         <p>Steps 4–6 are pure data re-entry. Fix: when GPS coordinates are in the study request, auto-call the PVGIS REST API → returns monthly irradiance data → platform auto-calculates panel size (÷worst month sun hrs × 1.30) and battery size (daily consumption × 2). Engineer reviews results — does not recalculate.</p>
       </div>
@@ -556,48 +624,6 @@ tr:nth-child(even) td{background:var(--c04);}
   </div>
 </div>
 
-<!-- W7 -->
-<div class="section section-alt" id="w7">
-  <span class="anchor"></span>
-  <h1>2.7 Tender Monitoring</h1>
-  <div class="two-col">
-    <div class="col-src">
-      <span class="col-label lbl-src">📄 Current State</span>
-      <h2>Gavin's MVP — 7-Step Workflow</h2>
-      <div class="flow">
-        <div class="flow-step"><div class="flow-num">1</div><div class="flow-text">User launches a search <strong>manually through Claude</strong></div></div>
-        <div class="flow-arrow">↓</div>
-        <div class="flow-step"><div class="flow-num">2</div><div class="flow-text">Application retrieves tenders from J360 for a selected period</div></div>
-        <div class="flow-arrow">↓</div>
-        <div class="flow-step"><div class="flow-num">3</div><div class="flow-text">For each tender, follows the official links provided by J360</div></div>
-        <div class="flow-arrow">↓</div>
-        <div class="flow-step"><div class="flow-num">4</div><div class="flow-text">Downloads available tender documents</div></div>
-        <div class="flow-arrow">↓</div>
-        <div class="flow-step"><div class="flow-num">5</div><div class="flow-text">Claude reads and analyzes the documentation</div></div>
-        <div class="flow-arrow">↓</div>
-        <div class="flow-step"><div class="flow-num">6</div><div class="flow-text">Relevant information is extracted</div></div>
-        <div class="flow-arrow">↓</div>
-        <div class="flow-step"><div class="flow-num">7</div><div class="flow-text">Application classifies and organizes opportunities for review</div></div>
-      </div>
-      <p>Gaps identified: manual trigger, no schedule, no CRM integration, scoring is relatively simple.</p>
-      <span class="cite">Source: <span class="tag tm">MEHDI</span> Tender Intelligence Tool – Handover Overview (Gavin's file)</span>
-    </div>
-    <div class="col-sug">
-      <span class="col-label lbl-sug">💡 Claude's Suggestions</span>
-      <a class="xlink" href="Solux_AI_Initiatives.html#t-p04">→ See P04 Tender Intelligence Tool</a>
-      <div class="sug"><div class="snum"><span class="pill pill-auto">AUTOMATE</span> Remove the Manual Trigger</div>
-        <p>Replace Step 1 with a cron job (n8n scheduled, weekdays 7am). The search runs automatically. Zero human action required to keep the pipeline populated with tender intelligence.</p>
-      </div>
-      <div class="sug"><div class="snum"><span class="pill pill-ai">AI LAYER</span> Structured Scoring</div>
-        <p>Rewrite the Claude prompt to return structured JSON per tender: <code>product_fit</code> (0–10), <code>geography_fit</code> (0–10), <code>scale_fit</code> (0–10), <code>eligibility</code> (Yes/No/Unclear), <code>deadline_days</code>, <code>recommended_action</code>. Total score → auto-action.</p>
-      </div>
-      <div class="sug"><div class="snum"><span class="pill pill-crm">CRM EDIT</span> Auto-Create Tender Opportunity</div>
-        <p>Score ≥ 7/10 → auto-create CRM Tender record + notify relevant regional sales manager. Score &lt; 7 → logged in archive only. Sales team reviews in CRM dashboard, not inside the Claude interface.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- ══ SECTION 3 — TECH STACK ══ -->
 <div class="section" id="s3">
   <span class="anchor"></span>
@@ -610,7 +636,7 @@ tr:nth-child(even) td{background:var(--c04);}
         <tbody>
           <tr><td><strong>Solux_byMehdi — CRM functions</strong> <span style="font-size:0.68rem;color:var(--c48);">(previously listed as "Custom CRM")</span></td><td>Sales &amp; Ops</td><td class="partial">PARTIAL</td><td>Data exists; workflows not enforced; no AI; no automation · Confirmed same build as the platform in the <span class="tag tsbm">SBM</span> overview — see <a href="#sbm" style="color:var(--doc-accent);font-weight:700;">§4b</a></td></tr>
           <tr><td><strong>Study Platform v1</strong></td><td>Engineering</td><td class="mvp">MVP</td><td>Needs review, stabilization, CRM integration</td></tr>
-          <tr><td><strong>Tender Tool (Gavin)</strong></td><td>Business Dev</td><td class="mvp">MVP</td><td>Manual trigger; no schedule; no CRM link</td></tr>
+          <tr><td><strong>Tender Tool (Gavin)</strong></td><td>Lead Intake · Public Tenders</td><td class="mvp">MVP</td><td>Manual trigger; no schedule; no CRM link</td></tr>
           <tr><td><strong>Solux Bridge</strong></td><td>IoT / After-Sales</td><td class="live">LIVE</td><td>Not linked to CRM after-sales cases</td></tr>
           <tr><td><strong>Mailchimp</strong></td><td>Email Marketing</td><td class="live">LIVE</td><td>Not connected to CRM; data underutilized</td></tr>
           <tr><td><strong>Brevo</strong></td><td>Email Marketing</td><td class="live">LIVE</td><td>Not connected to CRM; France only</td></tr>
@@ -711,7 +737,7 @@ tr:nth-child(even) td{background:var(--c04);}
         <li>A <strong>mix of CRM and ERP functions</strong> in a single platform: customer/project data, quotations and pipeline statuses (CRM side) together with costing, operations, finance validation and order management (ERP side). Confirmed by Klairs: this is the same build previously referenced in this document as "the custom CRM the owner is building".</li>
         <li><strong>Workflow described:</strong> Service Request (project business) or Direct Quotation (repeat/distributor business) → Sales Director review → Operations costing → Finance validation → final Commercial Validation → Quotation generation → Customer negotiation (Draft / Sent / Negotiation / Revised / Won / Lost) → Order creation with no re-entry → Order Management with real-time status and delay ownership.</li>
         <li><strong>Philosophy:</strong> information entered only once · every department works on the same project · each step validated before the next · always clear who owns the next action · every important decision traceable.</li>
-        <li><strong>Evolving:</strong> the overview states some modules are already operational while others are planned for future releases — it does not list which. A <strong>Study Lab module</strong> (lighting studies, energy studies, product configuration) is explicitly described as planned, not yet integrated.</li>
+        <li><strong>Evolving:</strong> the overview states some modules are already operational while others are planned for future releases — it does not list which. A <strong>Study Lab module</strong> (lighting studies, energy studies, product configuration) is explicitly described as planned, not yet integrated. <span style="color:var(--c48);">(Klairs note: this planned module is the same scope as this hub's P02 Study Lab — Phase 1 Lighting Design + Phase 2 Energy Automation — see Open Question #4 below.)</span></li>
       </ul>
       <span class="cite">Source: <span class="tag tsbm">SBM</span> — all points above taken directly from the overview document</span>
 
@@ -762,13 +788,13 @@ tr:nth-child(even) td{background:var(--c04);}
   <div class="tw"><table>
     <thead><tr><th>Area</th><th>Solux_byMehdi (per <span style="color:#FFD9A0;">SBM</span> overview)</th><th>Solux Hub workstream docs</th></tr></thead>
     <tbody>
-      <tr><td><strong>Lead intake &amp; marketing</strong></td><td>Not mentioned in the overview</td><td>W2.1 · P01 Lead Intelligence · P06 Marketing Intel</td></tr>
+      <tr><td><strong>Lead intake &amp; marketing</strong></td><td>Not mentioned in the overview</td><td>W2.1 (incl. Tender Monitoring sub-channel) · P01 Lead Intelligence · P06 Marketing Intel</td></tr>
       <tr><td><strong>Sales qualification</strong></td><td>Service Request captures full project info (customer, country, quantities, specs, requirements)</td><td>W2.2 qualification stage gates</td></tr>
-      <tr><td><strong>Studies</strong></td><td>Study Lab module — planned, not yet integrated</td><td>P02 Study Platform v1 exists (Mehdi's First Mission) · P03 Energy Study</td></tr>
+      <tr><td><strong>Studies</strong></td><td>Study Lab module — planned, not yet integrated</td><td>P02 Study Lab — Phase 1: Lighting Design (v1 exists, Mehdi's First Mission) + Phase 2: Energy Automation (future, depends on Phase 1 + P05)</td></tr>
       <tr><td><strong>Quotation</strong></td><td>Module described: auto-generation, revisions, statuses, Sales Director + Commercial validation</td><td>W2.4 recommendations (pre-overview)</td></tr>
       <tr><td><strong>Order &amp; operations</strong></td><td>Costing, production/supplier updates, Order Management with delay ownership</td><td>Not covered before this update</td></tr>
       <tr><td><strong>Finance</strong></td><td>Purchase prices, financial validation, payment tracking, bank charges, outstanding balances</td><td>Not covered before this update</td></tr>
-      <tr><td><strong>After-sales · Partners · Tenders</strong></td><td>Not mentioned in the overview</td><td>W2.5 Partner Channel · W2.6 After-Sales · W2.7 Tender Monitoring</td></tr>
+      <tr><td><strong>After-sales · Partners</strong></td><td>Not mentioned in the overview</td><td>W2.5 Partner Channel · W2.6 After-Sales</td></tr>
     </tbody>
   </table></div>
 
@@ -788,7 +814,7 @@ tr:nth-child(even) td{background:var(--c04);}
         <li><strong>Lead intake &amp; marketing</strong> — 10+ channels, AI classification, engagement scoring (W2.1, P01, P06).</li>
         <li><strong>After-sales / warranty cases</strong> — case management, Solux Bridge IoT link (W2.6).</li>
         <li><strong>Partner / distributor channel</strong> — territory ownership, onboarding (W2.5).</li>
-        <li><strong>Tender monitoring</strong> — scheduled scans, scoring (W2.7, P04).</li>
+        <li><strong>Tender monitoring</strong> — scheduled scans, scoring — now a sub-channel of Lead Intake, see W2.1 / P01.</li>
         <li><strong>Owner dashboard</strong> spanning leads → studies → quotes.</li>
       </ul>
       <span class="cite">Source: absence in <span class="tag tsbm">SBM</span> vs. coverage in Hub docs — factual comparison, not a criticism of the platform's roadmap</span>
@@ -802,7 +828,7 @@ tr:nth-child(even) td{background:var(--c04);}
       <tr><td>1</td><td>Which modules are <strong>operational today</strong> vs planned? The overview says "some modules… are already operational while others are planned" without listing which.</td><td>Every Hub recommendation (quote object, approvals, dashboards) depends on what already exists.</td></tr>
       <tr><td>2</td><td><strong>Handoff point:</strong> how does a lead (website / lead-intake side) become a Service Request in Solux_byMehdi?</td><td>This is the CRM ↔ ERP overlap point (quotation → order); it is defined in neither source.</td></tr>
       <tr><td>3</td><td><strong>Won / Lost source of truth:</strong> the overview tracks quotation statuses including Won/Lost — will pipeline tracking live only in Solux_byMehdi, or also elsewhere?</td><td>Two systems tracking the same outcome will drift apart.</td></tr>
-      <tr><td>4</td><td>Will the existing <strong>Study Platform v1 (P02)</strong> become the planned Study Lab module, or will it be rebuilt inside Solux_byMehdi?</td><td>Avoids double-building; affects P02/P03 roadmap.</td></tr>
+      <tr><td>4</td><td>Will the existing <strong>Study Lab v1 (P02, Phase 1: Lighting Design)</strong> become the planned Study Lab module inside Solux_byMehdi, or will it be rebuilt?</td><td>Avoids double-building; affects the P02 roadmap for both phases (Lighting Design + Energy Automation).</td></tr>
       <tr><td>5</td><td>Where will <strong>product / component costs</strong> used by Operations costing come from — is a connection to the P05 Product Knowledge Hub planned?</td><td>Prevents a second, parallel product/cost data source.</td></tr>
       <tr><td>6</td><td>Module mapping between the earlier "custom CRM" assessment (§4 table) and the overview's modules.</td><td>Same build (confirmed) — but the §4 module table pre-dates the overview and needs re-verification.</td></tr>
     </tbody>
@@ -813,6 +839,7 @@ tr:nth-child(even) td{background:var(--c04);}
   <div class="tw"><table>
     <thead><tr><th>Date</th><th>Update</th><th>Sections touched</th></tr></thead>
     <tbody>
+      <tr><td><strong>03 Jul 2026</strong></td><td>Tender Intelligence Tool (formerly P04) merged into P01 AI Lead Intelligence Platform as a public-tenders sub-channel (§2.1/§2.7 merged). Study Lab (formerly P02 + P03) merged into one platform, P02, with two phases: Phase 1 Lighting Design (active) and Phase 2 Energy Automation (future, gated on Phase 1 + P05). References to P03, P04, and W2.7 elsewhere in this document updated accordingly.</td><td>§2 Workflow table · §2.1 Lead Intake · §2.3 Study Lab · §4b Scope Map + Open Question #4 · §5 AI Roadmap · AI Initiatives (P01, P02 tabs) · Hub landing page</td></tr>
       <tr><td><strong>02 Jul 2026</strong></td><td>New source received from Mehdi: <em>Solux_byMehdi — Sales &amp; Operations Platform Overview</em> (Solux_ERP_Overview.docx). Section 4b created. Naming convention adopted: the platform is called <strong>Solux_byMehdi</strong> (mix of CRM + ERP functions); the document hub is called <strong>Solux Hub by Klairs</strong>.</td><td>§4b (new) · §3 Tech Stack table + "ERP: Don't Buy One Yet" note · §4 update box · W2.4 update box · Sources table · Hub landing page</td></tr>
     </tbody>
   </table></div>
@@ -826,13 +853,13 @@ tr:nth-child(even) td{background:var(--c04);}
     <thead><tr><th>ROI</th><th>Initiative</th><th>Timeline</th><th>AI Initiatives Link</th><th>Source</th></tr></thead>
     <tbody>
       <tr><td class="roi-1">#1</td><td><strong>CRM Activation</strong> — Workflows, pipeline, AI classifier, owner dashboard</td><td>Month 1–2</td><td><a href="Solux_AI_Initiatives.html#t-p01" style="color:var(--blue);font-size:0.75rem;">→ P01</a></td><td><span class="tag tc">CONSULT</span> <span class="tag tm">MEHDI</span></td></tr>
-      <tr><td class="roi-2">#2</td><td><strong>Lighting Study Platform</strong> — Review v1, CRM link, archive 600 past studies</td><td>Month 2–3</td><td><a href="Solux_AI_Initiatives.html#t-p02" style="color:var(--blue);font-size:0.75rem;">→ P02</a></td><td><span class="tag tm">MEHDI</span></td></tr>
+      <tr><td class="roi-2">#2</td><td><strong>Study Lab — Phase 1</strong> (Lighting Study Platform) — Review v1, CRM link, archive 600 past studies</td><td>Month 2–3</td><td><a href="Solux_AI_Initiatives.html#t-p02" style="color:var(--blue);font-size:0.75rem;">→ P02</a></td><td><span class="tag tm">MEHDI</span></td></tr>
       <tr><td class="roi-3">#3</td><td><strong>AI Lead Intelligence Platform</strong> — Webhook integrations, classifier, first reply drafter</td><td>Month 3–4</td><td><a href="Solux_AI_Initiatives.html#t-p01" style="color:var(--blue);font-size:0.75rem;">→ P01</a></td><td><span class="tag tc">CONSULT</span> <span class="tag tm">MEHDI</span></td></tr>
       <tr><td class="roi-4">#4</td><td><strong>Product Knowledge Hub</strong> — Single spec database; enables AI accuracy across all tools</td><td>Month 3–4</td><td><a href="Solux_AI_Initiatives.html#t-p05" style="color:var(--blue);font-size:0.75rem;">→ P05</a></td><td><span class="tag tm">MEHDI</span></td></tr>
-      <tr><td class="roi-5">#5</td><td><strong>Tender Intelligence Tool Upgrade</strong> — Schedule + structured scoring + CRM auto-create</td><td>Month 4–5</td><td><a href="Solux_AI_Initiatives.html#t-p04" style="color:var(--blue);font-size:0.75rem;">→ P04</a></td><td><span class="tag tm">MEHDI</span></td></tr>
+      <tr><td class="roi-5">#5</td><td><strong>Tender Intelligence Tool Upgrade</strong> — Schedule + structured scoring + CRM auto-create<span style="display:block;font-size:0.68rem;color:var(--c48);font-weight:400;">Public-tenders channel of Lead Intake / P01 (formerly P04)</span></td><td>Month 4–5</td><td><a href="Solux_AI_Initiatives.html#tender-subchannel" style="color:var(--blue);font-size:0.75rem;">→ P01 §Tenders</a></td><td><span class="tag tm">MEHDI</span></td></tr>
       <tr><td class="roi-6">#6</td><td><strong>Marketing Intelligence Platform</strong> — AI layer on Mailchimp + Brevo; CRM sync</td><td>Month 5–6</td><td><a href="Solux_AI_Initiatives.html#t-p06" style="color:var(--blue);font-size:0.75rem;">→ P06</a></td><td><span class="tag tm">MEHDI</span></td></tr>
       <tr><td class="roi-7">#7</td><td><strong>Commercial Intelligence Database</strong> — AI extracts 15 years of PDFs into structured DB</td><td>Month 6+</td><td><a href="Solux_AI_Initiatives.html#t-p07" style="color:var(--blue);font-size:0.75rem;">→ P07</a></td><td><span class="tag tm">MEHDI</span></td></tr>
-      <tr><td class="roi-8">#8</td><td><strong>Automated Energy Study</strong> — Full PVGIS automation pipeline (needs P02 + P05 first)</td><td>Month 8+</td><td><a href="Solux_AI_Initiatives.html#t-p03" style="color:var(--blue);font-size:0.75rem;">→ P03</a></td><td><span class="tag tm">MEHDI</span></td></tr>
+      <tr><td class="roi-8">#8</td><td><strong>Study Lab — Phase 2</strong> (Automated Energy Study) — Full PVGIS automation pipeline (needs Phase 1 + P05 first)</td><td>Month 8+</td><td><a href="Solux_AI_Initiatives.html#study-lab-phase2" style="color:var(--blue);font-size:0.75rem;">→ P02 §Phase 2</a></td><td><span class="tag tm">MEHDI</span></td></tr>
     </tbody>
   </table></div>
 
@@ -942,8 +969,8 @@ tr:nth-child(even) td{background:var(--c04);}
         <p>At Day 180, run a Sprint 2 review: (1) Are all 10 lead channels flowing into CRM? (2) Is the Product Hub being used by the Study Platform? (3) Is the Tender Tool creating CRM Opportunities without manual action? (4) Are Mailchimp hot leads triggering sales follow-up? If any answer is No — fix in Sprint 3 before adding the Commercial DB.</p>
       </div>
       <a class="xlink" href="Solux_AI_Initiatives.html#t-p01">→ P01 Lead Platform</a>
+      <a class="xlink" href="Solux_AI_Initiatives.html#tender-subchannel">→ Tenders (inside P01)</a>
       <a class="xlink" href="Solux_AI_Initiatives.html#t-p05">→ P05 Product Hub</a>
-      <a class="xlink" href="Solux_AI_Initiatives.html#t-p04">→ P04 Tender Tool</a>
       <a class="xlink" href="Solux_AI_Initiatives.html#t-p06">→ P06 Marketing</a>
     </div>
   </div>
@@ -986,7 +1013,7 @@ tr:nth-child(even) td{background:var(--c04);}
         <p>Future-state automation once the After-Sales CRM module is live: Solux Bridge fault alert (severity = critical) → n8n fires → CRM Case auto-created → assigned engineer notified → customer receives proactive email. Customer never has to call because the issue is already being handled. This is the highest-value use of the IoT data Solux already collects.</p>
       </div>
       <a class="xlink" href="Solux_AI_Initiatives.html#t-p07">→ P07 Commercial DB</a>
-      <a class="xlink" href="Solux_AI_Initiatives.html#t-p03">→ P03 Energy Study</a>
+      <a class="xlink" href="Solux_AI_Initiatives.html#study-lab-phase2">→ Study Lab Phase 2 (Energy)</a>
     </div>
   </div>
 </div>
@@ -1062,8 +1089,7 @@ tr:nth-child(even) td{background:var(--c04);}
       <tr><td><span class="tag tw2">WEB-STUDY</span></td><td>Study Lab Page</td><td>https://solux.fr/en/study-lab</td><td>8-step engineering process, PVGIS, Dialux, 30% margin, 2-day battery backup, 24/7 assistance</td></tr>
       <tr><td><span class="tag tw2">WEB-TECH</span></td><td>Technology Page</td><td>https://solux.fr/en/technology</td><td>LiFePO4 5K cycles, TOPCON 25.5%, Philips LED 196 lm/W, MPPT, Solux Bridge LoRa/Mesh</td></tr>
       <tr><td><span class="tag tm">MEHDI</span></td><td>Mehdi's Project Files</td><td>IA KLAIRS.zip — 7 Apple Pages files</td><td>All 7 AI project concepts with full workflows, Gavin's MVP details, marketing assets, 15-year archive</td></tr>
-      <tr><td><span class="tag tsbm">SBM</span></td><td>Solux_byMehdi — Sales &amp; Operations Platform Overview</td><td>Solux_ERP_Overview.docx — received from Mehdi, 02 Jul 2026</td><td>Platform philosophy, Service Request / Direct Quotation entry points, validation chain (Sales Director → Operations → Finance → Commercial), quotation statuses, order creation with no re-entry, Order Management, Finance module, planned Study Lab. Basis of §4b.</td></tr>
-      <tr><td><span class="tag tc">CONSULT</span></td><td>Klairs Consultation</td><td>Direct engagement context</td><td>"CRM is in build phase — not yet deployed to end-users", lead channels, Mailchimp/Brevo split, WhatsApp support · 02 Jul 2026: naming convention "Solux_byMehdi" (mix of CRM + ERP functions) and CRM-vs-ERP triage framework</td></tr>
+      <tr><td><span class="tag tc">CONSULT</span></td><td>Klairs Consultation</td><td>Direct engagement context</td><td>"CRM is in build phase — not yet deployed to end-users", lead channels, Mailchimp/Brevo split, WhatsApp support</td></tr>
       <tr><td><span class="tag ti">INFERRED</span></td><td>Consultant Inference</td><td>Analysis — not a named source</td><td>Quotation process details, sprint timelines, cost estimates. Must verify with Solux team.</td></tr>
     </tbody>
   </table></div>
