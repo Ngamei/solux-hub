@@ -1,0 +1,22 @@
+# Cursor Rules - Solux Hub
+
+Source of truth: local Markdown files in this repo.
+
+Always check before working:
+- PROJECT_CONTEXT.md
+- CURRENT_STATE.md
+- DECISIONS.md
+- TASKS.md
+
+## Code Rules
+- HTML project - keep it HTML-first
+- Match existing style from Style_Guide.html
+- Do not introduce JavaScript frameworks
+- Keep inject-hypothesis.js scoped and minimal
+
+## Change Rules
+- Explain what files you changed and why
+- Keep changes minimal and scoped
+- Do not rewrite unrelated files
+- Ask before changing document phase architecture (P01, P02, P03)
+- Update docs when behavior changes
