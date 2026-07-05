@@ -8,6 +8,7 @@
 | — | Merge Tender into P01 | Consolidate tender workflow under one phase | Done |
 | 2026-07-05 | Treat github.com/mzouaisolux/solux (Mehdi's live codebase) as the primary source for platform capability, superseding the original §4 gap audit where they conflict | The gap audit predates SBM's build progress; the repo shows Quotation, Study Request (`project_requests` workflow), and RBAC already implemented, contradicting several "Absent" ratings | Done |
 | 2026-07-05 | Append dated update notes to Business Analysis §4 and Working Doc rather than rewriting the original gap table | Preserves audit history per existing doc convention; original findings were accurate as of their own date | Done |
+| 2026-07-05 | Require explicit confirmation before writing to this project's brain files (CURRENT_STATE.md / DECISIONS.md / TASKS.md) at end of session | Prevent silent/assumed edits; rule now lives in ai-brain/GLOBAL_RULES.md and applies here | Done |
 
 ## Open Decisions
 [Fill in decisions that still need to be made]
