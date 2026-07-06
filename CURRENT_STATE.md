@@ -12,6 +12,7 @@ Last updated: 2026-07-06
 - **(2026-07-05)** Verified the platform has real RBAC: `user_roles` table + capability-based permission matrix (`permissions` / `role_permissions`, migration 026), server-side enforcement via `requireCapability()`, and a "View-As" simulation layer for super-admins that doesn't affect real security checks.
 - **(2026-07-06)** Confirmed Study Lab (P02) step ownership with Andrew & Phi: Steps 1–6 (Dialux through Battery Sizing) are Engineering; Steps 7–8 (Product Selection, Mechanical Study + 24/7 project assistance doc) are Sales, not part of the Study Lab automation platform. Business Analysis §2.3 rewritten with a full 8-step table (Phase / Input / Ownership / Process / Output) replacing the old flow diagram, resolving the "Phase 2*" ambiguity from the working spreadsheet.
 - **(2026-07-06)** Reconciled a divergence: local hub docs and the live repo had drifted apart (repo had the mzouaisolux findings in §4; local had the Study Lab ownership work). Merged both into one push rather than overwriting either.
+- **(2026-07-06)** Full consistency review across all four hub docs: fixed stale "Phase 1 selects products" language in AI Initiatives' P05 tab (Product Selection is Sales, not part of either Study Lab phase), backfilled the hub landing page's Update log with the 04 Jul (mzouaisolux) and 06 Jul (ownership) entries it was missing, and added a forward-pointing banner to Working Doc §0 noting it predates Solux_byMehdi naming and the live-codebase findings.
 
 ## What's Working
 - Vercel deployment pipeline

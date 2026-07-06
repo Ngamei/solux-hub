@@ -21,3 +21,4 @@
 - [ ] - [x] Verify RBAC implementation — capability-based role_permissions matrix, requireCapability enforcement, View-As simulation (2026-07-05)
 - [ ] - [x] Confirm Study Lab (P02) step ownership with Andrew & Phi — Steps 1-6 Engineering, Steps 7-8 Sales; Business Analysis §2.3 rewritten with full ownership table (2026-07-06)
 - [ ] - [x] Reconcile local/repo divergence (mzouaisolux findings vs. Study Lab ownership work) into a single merged push (2026-07-06)
+- [ ] - [x] Full hub consistency review (all 4 docs) — fixed stale P05 ownership language, backfilled hub Update log (04+06 Jul entries), added Working Doc forward-pointer banner (2026-07-06)

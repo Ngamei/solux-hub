@@ -11,6 +11,7 @@
 | 2026-07-05 | Require explicit confirmation before writing to this project's brain files (CURRENT_STATE.md / DECISIONS.md / TASKS.md) at end of session | Prevent silent/assumed edits; rule now lives in ai-brain/GLOBAL_RULES.md and applies here | Done |
 | 2026-07-06 | Confirmed Study Lab (P02) step ownership: Steps 1–6 (Dialux Simulation through Battery Sizing) = Engineering; Steps 7–8 (Product Selection, Mechanical Study + 24/7 project assistance doc) = Sales | Direct confirmation from Andrew & Phi — resolves the "Phase 2*" ambiguity flagged in the working 8-step spreadsheet; Study Lab platform automation scope is now understood to end at Battery Sizing, not Mechanical Study | Done |
 | 2026-07-06 | Going forward, pair every commit/push to the hub docs with an append-only update to CURRENT_STATE.md / DECISIONS.md / TASKS.md in the same push | Keeps the project brain in sync with actual doc changes across sessions, per Klairs's standing confirmation | Done |
+| 2026-07-06 | Full hub consistency review: fixed stale "Phase 1 selects products" language in AI Initiatives P05 tab, added the 04 Jul (mzouaisolux) and 06 Jul (ownership) entries to the hub landing page Update log, added a forward-pointing banner to Working Doc §0 | Landing page and Working Doc had drifted behind the detail docs; Working Doc kept as historical Phase 1 record per existing convention, banner added instead of rewrite | Done |
 
 ## Open Decisions
 [Fill in decisions that still need to be made]
