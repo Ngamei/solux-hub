@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>SOLUX — App Map (Pages & Flows)</title>
+<style>
+  :root{
+    --bg:#f7f7f5; --card:#ffffff; --ink:#1c1c1a; --muted:#6b6b66; --line:#e3e3dd;
+    --accent:#2b6cb0;
+    --t-neutral:#8a8a83; --t-sky:#2f80c8; --t-amber:#d99516; --t-violet:#7c5cd6;
+    --t-emerald:#2fa36b; --t-red:#d1495b;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:14px;line-height:1.45}
+  header{padding:26px 28px 18px;border-bottom:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:20}
+  h1{margin:0 0 4px;font-size:22px}
+  .sub{color:var(--muted);font-size:13px;max-width:820px}
+  .ver{font-size:12.5px;color:#6b6b66;margin:2px 0 6px}
+  .ver code{background:#f0f0ec;padding:1px 6px;border-radius:5px;font-size:11.5px}
+  .wrap{padding:24px 28px 80px;max-width:1280px;margin:0 auto}
+  .tabs{display:flex;gap:6px;margin-top:14px;flex-wrap:wrap}
+  .tab{padding:6px 14px;border:1px solid var(--line);border-radius:999px;background:#fff;cursor:pointer;font-size:13px;color:var(--muted)}
+  .tab.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+  h2{font-size:16px;margin:34px 0 4px}
+  h2:first-child{margin-top:6px}
+  .note{color:var(--muted);font-size:12.5px;margin:0 0 14px}
+  /* page inventory */
+  .areas{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+  .area{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .area h3{margin:0 0 2px;font-size:14px;display:flex;align-items:center;gap:8px}
+  .dot{width:10px;height:10px;border-radius:3px;display:inline-block;flex:none}
+  .area .role{font-size:11px;color:var(--muted);margin:0 0 10px}
+  .pg{display:flex;gap:8px;padding:4px 0;border-top:1px dashed var(--line);font-size:13px}
+  .pg:first-of-type{border-top:none}
+  .pg code{background:#f0f0ec;padding:1px 6px;border-radius:5px;font-size:12px;color:#333;white-space:nowrap}
+  .pg span{color:var(--muted);font-size:12px}
+  .count{font-size:11px;color:var(--muted);font-weight:400;margin-left:auto}
+  /* flows */
+  .flow{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:16px}
+  .flow h3{margin:0 0 2px;font-size:14px}
+  .flow .meta{color:var(--muted);font-size:12px;margin:0 0 12px}
+  .steps{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+  .chip{padding:5px 11px;border-radius:8px;font-size:12.5px;border:1px solid var(--line);background:#fff;white-space:nowrap}
+  .chip.b{font-weight:600}
+  .arrow{color:var(--muted);font-size:14px}
+  .term{border-style:dashed}
+  .legend{display:flex;gap:14px;flex-wrap:wrap;margin:2px 0 20px;font-size:12px;color:var(--muted)}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .sw{width:12px;height:12px;border-radius:3px;display:inline-block}
+  /* roles */
+  table{border-collapse:collapse;width:100%;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:13px}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:#f0f0ec;font-size:12px;text-transform:uppercase;letter-spacing:.03em;color:#555}
+  tr:last-child td{border-bottom:none}
+  .howto{background:#fff8e8;border:1px solid #f0e2b8;border-radius:10px;padding:12px 16px;font-size:12.5px;color:#6b5a1e;margin-bottom:8px}
+  .howto code{background:#f3ecd2;padding:1px 5px;border-radius:4px}
+  .hidden{display:none}
+  .hubbar{background:#1B3A6B;border-bottom:3px solid #E87722;padding:8px 28px;font-size:12.5px}
+  .hubbar a{color:#fff;text-decoration:none;font-weight:600}
+  .hubbar a:hover{color:#E87722}
+  .hubbar .sx{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;background:#E87722;border-radius:4px;font-weight:900;font-size:11px;margin-right:8px;vertical-align:middle;color:#fff}
+  .tabintro{background:#eef4fb;border:1px solid #d5e3f2;border-left:4px solid var(--accent);
+    border-radius:8px;padding:11px 15px;margin:6px 0 16px;font-size:13.5px;color:#274b6d}
+  .tabintro b{color:#1a3a57}
+  .plain{color:#4a4a44;font-size:12.5px;font-style:italic;margin:0 0 9px;line-height:1.4}
+  .flow .plain{font-style:normal;color:#333;font-size:13px;margin:0 0 6px}
+  footer{color:var(--muted);font-size:11.5px;padding:0 28px 40px;max-width:1280px;margin:0 auto}
+</style>
+</head>
+<body>
+<div class="hubbar"><a href="Solux.html"><span class="sx">SX</span>← Solux Hub by Klairs</a> &nbsp;·&nbsp; SOLUX — Application Map</div>
+<header>
+  <h1>SOLUX — Application Map</h1>
+  <div class="ver">Reflects the codebase at commit <code>0e6172e</code> on <b>main</b> · 6 July 2026 (the “July 2026 update”).</div>
+  <div class="sub">Every page grouped by functional area, plus the status-driven flows that connect them. This is a living map — edit the <code>DATA</code> object near the top of this file's &lt;script&gt; and reload to update it.</div>
+  <div class="tabs" id="tabs"></div>
+</header>
+
+<div class="wrap">
+  <div class="howto">✏️ <b>How to update:</b> open this file in a text editor, edit the <code>DATA</code> object at the top of the &lt;script&gt; block (add a page to an area's <code>pages</code>, add a flow, tweak a status). Save &amp; reload — everything re-renders automatically. No build step, no server.</div>
+
+  <section id="view-pages">
+    <h2>Page inventory <span class="count" id="pgcount"></span></h2>
+    <p class="note">~69 route pages + 3 API routes, grouped into functional areas. Segments in <code>[brackets]</code> are dynamic (id/slug) routes. Items marked <b>WIP</b> are parallel/experimental versions. <b>(NEW)</b> = added in the July 2026 update.</p>
+    <div class="areas" id="areas"></div>
+  </section>
+
+  <section id="view-flows" class="hidden">
+    <h2>Flows &amp; status lifecycles</h2>
+    <p class="note">Each flow is a state machine. Chips are the real status values from the code (<code>lib/types.ts</code>, <code>lib/lifecycle.ts</code>, and migrations). Dashed = terminal state.</p>
+    <div class="legend" id="legend"></div>
+    <div id="flows"></div>
+  </section>
+
+  <section id="view-roles" class="hidden">
+    <h2>Roles &amp; cross-cutting systems</h2>
+    <p class="note">Who does what, and the systems that touch every flow.</p>
+    <div id="roles"></div>
+  </section>
+
+  <section id="view-data" class="hidden">
+    <h2>Data model <span class="count" id="entcount"></span></h2>
+    <p class="note">Core tables grouped by domain (from <code>supabase/schema.sql</code> + migrations). Badges show key foreign keys → target table. <code>◆</code> = polymorphic link (entity_type/entity_id). The app has ~75 tables total; this shows the ones that carry the business flows.</p>
+    <div class="areas" id="entities"></div>
+    <h2>Key relationships (the commercial spine)</h2>
+    <p class="note">How the core chain connects, parent → child.</p>
+    <div id="rels"></div>
+  </section>
+
+  <section id="view-perms" class="hidden">
+    <h2>Permission matrix <span class="count">44 capabilities · 7 roles</span></h2>
+    <p class="note">Catalog-driven from <code>lib/capabilities.ts</code> (the single source of truth). Rows = the capability catalog; ✓/· = the <b>seeded default</b> grant per role. State is DB-backed (<code>role_permissions</code>) and editable live at <code>/permissions/actions</code>. Enforced server-side via <code>requireCapability()</code>.</p>
+    <div id="perms"></div>
+  </section>
+
+  <section id="view-nav" class="hidden">
+    <h2>Navigation graph <span class="count" id="navcount"></span></h2>
+    <p class="note">The real top mega-menu from <code>lib/navigation.ts</code> — the single source of truth. Each top-level menu → its groups → links. The pill on each link is the <b>guard</b> it's shown behind (menu visibility mirrors the route's own gate). Note: menu labels differ from routes — e.g. <b>Orders</b> → <code>/operations</code>.</p>
+    <div class="areas" id="nav"></div>
+  </section>
+
+  <section id="view-trans" class="hidden">
+    <h2>Transition triggers</h2>
+    <p class="note">For each flow: who moves each arrow and the capability that guards it (from migration <code>026</code> descriptions + the matrix). <b>TLM</b> = task_list_manager · <b>super</b> = super_admin.</p>
+    <div id="trans"></div>
+  </section>
+</div>
+
+<footer id="foot"></footer>
+
+<script>
+/* =========================================================================
+   DATA — EDIT THIS to keep the map current. Everything below renders from it.
+   ========================================================================= */
+const TONE = { neutral:"--t-neutral", sky:"--t-sky", amber:"--t-amber",
+               violet:"--t-violet", emerald:"--t-emerald", red:"--t-red" };
+
+const DATA = {
+  areas: [
+    { name:"Auth", color:"#8a8a83", role:"everyone",
+      pages:[ ["/login","Email + password (Supabase Auth)"] ] },
+
+    { name:"Dashboards & briefing", color:"#2f80c8", role:"role-scoped",
+      pages:[
+        ["/dashboard","Personal action center / home"],
+        ["/dashboard/operations-v2","Ops dashboard — WIP"],
+        ["/morning","Morning briefing view"],
+        ["/business","Business overview"],
+        ["/operations","Operations overview"],
+        ["/finance","Finance read view"],
+      ]},
+
+    { name:"Prospects & Tenders (pre-sales)", color:"#7c5cd6", role:"sales · sales director",
+      pages:[
+        ["/prospects","Prospect list"],
+        ["/prospects/pipeline","Tender pipeline board"],
+        ["/prospects/tenders/[id]","Tender detail / qualification"],
+      ]},
+
+    { name:"Clients", color:"#2fa36b", role:"sales · admin",
+      pages:[
+        ["/clients","Client list"],
+        ["/clients/[id]","Client detail"],
+        ["/clients/[id]/edit","Edit client"],
+        ["/clients/[id]/import-invoices","Import historical invoices"],
+      ]},
+
+    { name:"Affairs (project container)", color:"#d99516", role:"sales · ops",
+      pages:[
+        ["/affairs","Affairs list"],
+        ["/affairs/[id]","Affair detail — groups docs/orders/invoices"],
+        ["/affairs-experimental","Experimental affair UI — WIP"],
+      ]},
+
+    { name:"Sales & Quotations", color:"#2b6cb0", role:"sales",
+      pages:[
+        ["/sales","Sales workspace"],
+        ["/sales/analytics","Sales KPIs / analytics"],
+        ["/sales/merges","Duplicate/merge resolution"],
+        ["/documents/new","Create quotation / proforma"],
+        ["/documents/[id]","Document detail + PDF"],
+      ]},
+
+    { name:"Projects (project requests)", color:"#7c5cd6", role:"sales → director → ops",
+      pages:[
+        ["/projects","Project request list"],
+        ["/projects/[id]","Project request detail"],
+        ["/projects/new","New project request"],
+        ["/projects/overview","Central overview of ALL requests (NEW)"],
+        ["/projects/approvals","Director approvals queue"],
+        ["/projects/cost-requests","Factory cost requests"],
+        ["/projects/logistics-requests","Logistics/freight requests"],
+      ]},
+
+    { name:"Task lists", color:"#d99516", role:"sales · task_list_manager · factory",
+      pages:[
+        ["/task-lists","Task list index"],
+        ["/task-lists/[id]","Task list workflow + validation"],
+      ]},
+
+    { name:"Production", color:"#d99516", role:"operations · task_list_manager",
+      pages:[
+        ["/production/orders","Production orders list"],
+        ["/production/orders/[id]","Production order detail"],
+        ["/production/orders/[id]/v2","PO detail — WIP"],
+        ["/production/queue","Production queue"],
+        ["/production/quick-update","Bulk quick-update"],
+      ]},
+
+    { name:"Order follow-up", color:"#2f80c8", role:"sales · ops",
+      pages:[ ["/order-follow-up","In-flight order tracking (6-phase view)"] ] },
+
+    { name:"Invoicing", color:"#2fa36b", role:"finance · sales",
+      pages:[ ["/invoicing/[id]","Deposit & balance invoicing"] ] },
+
+    { name:"Costing & Factory mapping", color:"#6b6b66", role:"ops · admin",
+      pages:[
+        ["/cost-entry","Enter/version product costs"],
+        ["/factory-mapping","Map product config → factory SKU"],
+      ]},
+
+    { name:"Forecast", color:"#2f80c8", role:"sales director · management",
+      pages:[ ["/forecast","Pipeline forecast (latest version per affair)"] ] },
+
+    { name:"Permissions", color:"#d1495b", role:"admin · super_admin",
+      pages:[
+        ["/permissions","Role/capability matrix"],
+        ["/permissions/actions","Per-action permissions"],
+        ["/permissions/teams","Teams & manager visibility"],
+      ]},
+
+    { name:"Admin — config", color:"#d1495b", role:"admin · super_admin",
+      pages:[
+        ["/admin/products","Products catalog"],
+        ["/admin/products/[id]","Product detail"],
+        ["/admin/products/grid","Grid editor"],
+        ["/admin/products/images","Product images"],
+        ["/admin/products/import","Bulk import"],
+        ["/admin/categories","Categories + templates"],
+        ["/admin/categories/[id]","Category detail"],
+        ["/admin/pricing","Pricing engine"],
+        ["/admin/pricing/[id]","Price list detail"],
+        ["/admin/pricing/dashboard","Pricing dashboard"],
+        ["/admin/pricing/library","Pricing library"],
+        ["/admin/pricing/prices","Price versions"],
+        ["/admin/banks","Bank accounts"],
+        ["/admin/banks/[id]","Bank detail"],
+        ["/admin/sales-conditions","Sales conditions"],
+        ["/admin/sales-conditions/[id]","Condition detail"],
+        ["/admin/components","Reusable components"],
+        ["/admin/events","Event registry"],
+        ["/admin/events/[eventKey]","Event detail"],
+        ["/admin/notifications","Notification rules"],
+        ["/admin/users","User management"],
+        ["/admin/diagnostics","Diagnostics"],
+        ["/admin/diagnostics/reset","Dev data reset"],
+        ["/admin/diagnostics/tender-merge","Tender merge tool"],
+      ]},
+
+    { name:"API routes", color:"#8a8a83", role:"server",
+      pages:[
+        ["/api/documents/[id]/pdf","Generate document PDF"],
+        ["/api/attachments/[id]/download","Download attachment"],
+        ["/api/conversations/[type]/[id]","Entity message thread"],
+      ]},
+  ],
+
+  flows: [
+    { name:"① Quotation (document)", meta:"lib/types.ts · DocStatus — the core commercial record. 'won' spawns a task list.",
+      steps:[["draft","neutral"],["sent","sky"],["negotiating","amber"],["won ★","emerald"],["lost","red","term"],["cancelled","red","term"]] },
+
+    { name:"② Production task list", meta:"ProductionTaskListStatus — sales drafts, factory reviews. 'validated' spawns a production order. needs_revision loops back.",
+      steps:[["draft","neutral"],["under_validation","sky"],["needs_revision ↺","red"],["validated ★","amber"],["production_ready","emerald"],["cancelled","red","term"]] },
+
+    { name:"③ Production order — payment · production · shipping", meta:"ProductionOrderStatus — one record carries money + manufacturing + shipping. 'delivered' is terminal.",
+      steps:[["awaiting_deposit","amber"],["deposit_received","sky"],["production_scheduled","sky"],["in_production","amber"],["production_delayed ⚠","red"],["production_completed","emerald"],["shipment_booked","violet"],["shipped","violet"],["delivered","emerald","term"],["cancelled","red","term"]] },
+
+    { name:"④ Invoicing (parallel track)", meta:"lib/invoicing.ts (m141) — deposit then balance. credit_note subtracts. Hard ceiling = quotation total.",
+      steps:[["deposit invoice","sky"],["balance invoice","sky"],["draft","neutral"],["sent","sky"],["partially_paid","amber"],["paid","emerald","term"],["overdue","red"],["cancelled","red","term"]] },
+
+    { name:"⑤ Project request", meta:"ProjectRequestStatus — sales → director → operations → pricing → quotation. Feeds the quotation flow.",
+      steps:[["draft","neutral"],["submitted","sky"],["waiting_director_approval","amber"],["waiting_factory_cost","amber"],["waiting_logistics","amber"],["ready_for_pricing","sky"],["priced","sky"],["quotation_generated","emerald"],["won","emerald","term"],["lost","red","term"],["cancelled","red","term"]] },
+
+    { name:"⑥ Affair (commercial container)", meta:"LIVE_AFFAIR_STATUSES + phase docs — independent of any single document. Archive is a separate flag.",
+      steps:[["lead","neutral"],["tender_review","sky"],["partner_selection","sky"],["opportunity","amber"],["quotation","amber"],["negotiation","amber"],["won","emerald"],["in_production","violet"],["shipped","violet"],["completed","emerald","term"],["lost","red","term"],["abandoned","red","term"]] },
+
+    { name:"⑦ Prospect / Tender pipeline (pre-sales)", meta:"migration 104 — prospect: new→…→converted; tender: new→…→closed.",
+      steps:[["prospect: new","neutral"],["contacted","sky"],["qualified","amber"],["converted","emerald"],["discarded","red","term"],["tender: new","neutral"],["in_progress","amber"],["converted","emerald"],["closed","neutral","term"]] },
+
+    { name:"⑧ Order-in-flight (unified 6-phase view)", meta:"lib/lifecycle.ts · computeOrderFlightStage() — collapses ①②③ into ONE stage everyone sees.",
+      steps:[["0 Quote","neutral"],["1 Task list","sky"],["2 Payment","amber"],["3 Production","amber"],["4 Shipping","violet"],["5 Delivered","emerald","term"]] },
+  ],
+
+  roles: [
+    ["admin","Full config access — products, pricing, categories, banks, users, permissions."],
+    ["super_admin","Admin + destructive/diagnostic operations (flag on top of admin)."],
+    ["sales","Create clients, quotations, project requests, task list drafts; own their affairs."],
+    ["sales director","Sales visibility across the team; approvals; forecast."],
+    ["operations","Production orders, task list validation, factory cost & logistics, shipping."],
+    ["task_list_manager","Manages/validates task lists between sales and production."],
+    ["finance","Read access to invoicing, payments, balances."],
+  ],
+
+  // ---- Data model: entities grouped by domain. Each: [table, "fk→target, fk→target"] ----
+  entities: [
+    { domain:"Commercial core", color:"#2b6cb0", tables:[
+      ["clients","(root) — company, contacts, BL profile"],
+      ["affairs","client_id→clients · owner_id→users"],
+      ["documents","client_id→clients · affair_id→affairs · root_document_id→documents (self)"],
+      ["document_lines","document_id→documents · product_id→products"],
+      ["contacts","client_id→clients"],
+    ]},
+    { domain:"Catalog & pricing", color:"#2fa36b", tables:[
+      ["products","—"],
+      ["options","product_id→products"],
+      ["prices_version","product_id→products"],
+      ["product_costs","product_id→products"],
+      ["config_fields","category/family · config_field_options→config_fields"],
+      ["price_lists","price_list_assignments, price_list_margins→price_lists"],
+      ["pricing_settings / cost_batches / cost_rmb_history","pricing engine (m084/086)"],
+      ["factory_mappings / component_mappings","product config → factory SKU"],
+    ]},
+    { domain:"Production", color:"#d99516", tables:[
+      ["production_task_lists","document_id→documents · affair_id→affairs"],
+      ["production_task_list_lines","task_list_id→production_task_lists"],
+      ["production_orders","task_list_id→production_task_lists · document_id→documents"],
+      ["production_payments","production_order_id→production_orders"],
+      ["production_deadline_changes","production_order_id→production_orders"],
+    ]},
+    { domain:"Invoicing", color:"#2fa36b", tables:[
+      ["invoice_families","document_id→documents · affair_id→affairs"],
+      ["invoices","family_id→invoice_families"],
+      ["invoice_payments","invoice_id→invoices"],
+    ]},
+    { domain:"Projects (pre-quote)", color:"#7c5cd6", tables:[
+      ["project_requests","client_id→clients · affair_id→affairs"],
+      ["factory_cost_requests / logistics_requests","project_request_id→project_requests"],
+      ["project_products / project_request_files","project_request_id→project_requests"],
+      ["project_costing_versions","project_request_id→project_requests"],
+    ]},
+    { domain:"Prospects & tenders", color:"#7c5cd6", tables:[
+      ["prospects","client_id→clients"],
+      ["tenders","prospect_id→prospects"],
+      ["tender_participants / tender_followups","tender_id→tenders"],
+      ["prospect_activities","prospect_id→prospects"],
+    ]},
+    { domain:"Access & permissions", color:"#d1495b", tables:[
+      ["user_roles","user_id→auth.users · super_admin flag"],
+      ["user_profiles","user_id→auth.users"],
+      ["permissions / role_permissions","role_permissions.permission_key→permissions"],
+      ["teams / team_members / access_grants","visibility scopes (m067)"],
+    ]},
+    { domain:"Cross-cutting (polymorphic ◆)", color:"#8a8a83", tables:[
+      ["events ◆","entity_type/entity_id — timeline"],
+      ["entity_messages ◆","entity_type/entity_id · entity_message_reads"],
+      ["attachments","affair_id (= root document id)"],
+      ["planned_actions / action_notes / action_acks","per-entity actions"],
+      ["quotation_reminders","document_id→documents"],
+      ["notification_rules / event_routing","notification config"],
+    ]},
+    { domain:"Sales analytics & import", color:"#6b6b66", tables:[
+      ["salers / sales_clients / sales_orders","imported history (m138)"],
+      ["monthly_sales_history / sales_audit_log","analytics"],
+      ["import_batches / imported_documents","historical import (m137)"],
+    ]},
+    { domain:"Config & system", color:"#6b6b66", tables:[
+      ["sales_conditions / bank_accounts","quote terms"],
+      ["categories / product_families","catalog structure"],
+      ["app_settings","global settings"],
+      ["schema_migrations","migration ledger (m113)"],
+    ]},
+  ],
+
+  relationships: [
+    "client → affair → document (quotation)",
+    "document → document_lines → product",
+    "document (won) → production_task_list → production_task_list_lines",
+    "production_task_list (validated) → production_order → payments / deadline_changes",
+    "document / affair → invoice_family → invoices → invoice_payments",
+    "prospect → tender → project_request → document",
+    "events / entity_messages / attachments attach polymorphically to any of the above",
+  ],
+
+  // ---- Permission matrix — catalog-driven (lib/capabilities.ts, 44 caps). ----
+  // roles order = [super_admin, admin, sales_director, task_list_mgr, operations, sales, finance]
+  // 1 = seeded grant (verified in a migration); 0 = not granted (fail-closed).
+  // * = grant seeded in a migration not re-verified here (see note).
+  permRoles: ["super_admin","admin","sales_dir","task_list_mgr","operations","sales","finance"],
+  capabilities: [
+    ["Quotations","quotation.create",            [1,1,0,1,0,1,0]],
+    ["Quotations","quotation.cancel",            [1,1,0,1,0,1,0]],
+    ["Quotations","quotation.archive",           [1,1,0,0,0,0,0]],
+    ["Quotations","quotation.delete",            [1,0,0,0,0,0,0]],
+    ["Service Requests","project.create",              [1,1,1,0,0,1,0]],
+    ["Service Requests","project.approve",             [1,1,1,0,0,0,0]],
+    ["Service Requests","project.enter_cost",          [1,1,0,1,1,0,1]],
+    ["Service Requests","project.enter_logistics",     [1,1,0,1,1,0,0]],
+    ["Service Requests","project.set_pricing",         [1,1,1,0,0,0,0]],
+    ["Service Requests","project.generate_quotation",  [1,1,1,0,0,1,0]],
+    ["Service Requests","project.view_cost",           [1,1,1,1,1,0,1]],
+    ["Service Requests","project.override_cost",       [1,1,1,0,0,0,0]],
+    ["Service Requests","project.view_overview (new m148)",[1,1,1,0,1,0,0]],
+    ["Task Lists","task_list.validate",          [1,1,0,1,0,0,0]],
+    ["Task Lists","task_list.reject",            [1,1,0,1,0,0,0]],
+    ["Task Lists","task_list.archive",           [1,1,0,0,0,0,0]],
+    ["Task Lists","task_list.delete",            [1,0,0,0,0,0,0]],
+    ["Task Lists","task_list.sync_orphans",      [1,1,0,1,0,0,0]],
+    ["Factory Mapping","factory_mapping.access *",[1,1,0,0,0,0,0]],
+    ["Production Orders","production_order.edit_status",     [1,1,0,1,0,0,0]],
+    ["Production Orders","production_order.edit_deadline",   [1,1,0,1,0,0,0]],
+    ["Production Orders","production_order.edit_payments",   [1,1,0,1,0,0,0]],
+    ["Production Orders","production_order.edit_shipment",   [1,1,0,1,0,0,0]],
+    ["Production Orders","production_order.set_timeline",    [1,1,0,1,0,0,0]],
+    ["Production Orders","production_order.start_without_deposit",[1,1,0,0,0,0,0]],
+    ["Production Orders","production_order.archive",         [1,1,0,0,0,0,0]],
+    ["Production Orders","production_order.delete",          [1,0,0,0,0,0,0]],
+    ["Sales Orders","sales_order.edit *",        [1,1,0,0,0,0,0]],
+    ["Clients","sales_client.merge *",           [1,1,0,0,0,0,0]],
+    ["Pricing","pricing.manage",                 [1,1,0,0,0,0,0]],
+    ["Pricing","pricing.manage_costs",           [1,1,0,0,0,0,1]],
+    ["Pricing","pricing.view_catalogue_prices",  [1,1,0,0,0,0,0]],
+    ["Finance","finance.view",                   [1,1,1,0,0,0,1]],
+    ["Forecast","forecast.view_global",          [1,1,0,0,0,0,0]],
+    ["Sales & Analytics","sales_analytics.view *",[1,1,0,0,0,0,1]],
+    ["Prospects / CRM","prospect.access",        [1,1,1,0,0,1,0]],
+    ["Administration","admin.manage_permissions",[1,0,0,0,0,0,0]],
+    ["Administration","admin.manage_users",      [1,0,0,0,0,0,0]],
+    ["Administration","admin.diagnostics",       [1,0,0,0,0,0,0]],
+    ["Administration","admin.manage_products",   [1,1,0,0,0,0,0]],
+    ["Administration","admin.manage_categories", [1,1,0,0,0,0,0]],
+    ["Administration","admin.manage_banks",      [1,1,0,0,0,0,0]],
+    ["Administration","admin.manage_sales_conditions",[1,1,0,0,0,0,0]],
+  ],
+  permNote:"NEW design (July 2026 update): capabilities are now a self-maintaining catalog in lib/capabilities.ts (44 caps). The matrix ROWS come from that catalog; the checkbox STATE lives in role_permissions and is editable live at /permissions/actions — a not-yet-granted capability shows OFF for every role (fail-closed). Adding a capability needs no migration. Grants shown are the verified seeded defaults; admin/super_admin also pass many gates via anti-lockout even where a cell reads 0. * = grant seeded in a migration (m064/088 factory mapping, m138 sales) not re-verified in this pass.",
+
+  // ---- Navigation graph: the real mega-menu (lib/navigation.ts). ----
+  // category → [ groupTitle, [ [label, route, guard] ] ]
+  nav: [
+    { cat:"Dashboard", href:"/dashboard", color:"#2f80c8", groups:[
+      ["(direct link)", [["Dashboard","/dashboard","always"]]],
+    ]},
+    { cat:"Clients & Projects", href:"/clients", color:"#2b6cb0", groups:[
+      ["Future Clients", [
+        ["Prospect Companies","/prospects","cap: prospect.access"],
+        ["Tender Inbox","/prospects?u=tenders","cap: prospect.access"],
+        ["Tender Pipeline","/prospects/pipeline","cap: prospect.access"],
+      ]],
+      ["Clients & Business", [
+        ["Clients","/clients","always"],
+        ["New client","/clients?new=1","always"],
+        ["My service requests","/projects?mine=1","always"],
+        ["New service request","/projects/new","cap: project.create"],
+        ["Service Request overview","/projects/overview","cap: project.view_overview / admin"],
+        ["New quotation","/documents/new","cap: quotation.create"],
+      ]],
+      ["Reporting", [
+        ["Forecast","/forecast","always"],
+        ["Business overview","/business","always"],
+      ]],
+    ]},
+    { cat:"Task Lists", href:"/task-lists", color:"#d99516", groups:[
+      ["Task lists", [
+        ["All task lists","/task-lists","always"],
+        ["Pending validation","/task-lists?status=under_validation","always"],
+        ["Needs revision","/task-lists?status=needs_revision","always"],
+        ["Validated","/task-lists?status=validated","always"],
+      ]],
+      ["Factory configuration", [
+        ["Factory mapping","/factory-mapping","cap: factory_mapping.access"],
+      ]],
+    ]},
+    { cat:"Orders", href:"/operations", color:"#d99516", groups:[
+      ["Orders", [
+        ["All orders","/operations","always"],
+        ["Quick Update","/production/quick-update","cap: production_order.edit_* / admin"],
+        ["In Production","/operations?status=in_production","always"],
+        ["Shipping","/operations?status=shipping","always"],
+        ["Delivered","/operations?status=delivered","always"],
+        ["Finance — balances & LC","/finance","cap: finance.view"],
+        ["Archived","/operations?scope=archived","always"],
+      ]],
+    ]},
+    { cat:"Sales", href:"/sales", color:"#2b6cb0", groups:[
+      ["(direct link)", [["Sales & analytics","/sales","cap: sales_analytics.view / admin·finance"]]],
+    ]},
+    { cat:"Catalog", href:"/admin/products", color:"#2fa36b", groups:[
+      ["Product catalog", [
+        ["Products","/admin/products","cap: manage_products / categories"],
+        ["Categories","/admin/categories","adminLike"],
+        ["Component mappings","/admin/components","technical role"],
+        ["Templates","/admin/categories#templates","adminLike"],
+      ]],
+    ]},
+    { cat:"Pricing", href:"/admin/pricing", color:"#2fa36b", groups:[
+      ["Costs", [
+        ["Cost Entry","/cost-entry","cap: pricing.manage_costs / admin·finance"],
+      ]],
+      ["Price lists", [
+        ["Price Lists","/admin/pricing","cap: pricing.manage"],
+        ["Price List Library","/admin/pricing/library","cap: pricing.manage"],
+      ]],
+    ]},
+    { cat:"Admin", href:"/admin", color:"#d1495b", groups:[
+      ["Access & permissions", [
+        ["Users","/admin/users","cap: admin.manage_users"],
+        ["Permissions","/permissions/actions","cap: admin.manage_permissions"],
+        ["Roles & teams","/permissions/teams","cap: admin.manage_permissions"],
+        ["Event Registry","/admin/events","adminLike"],
+      ]],
+      ["Company settings", [
+        ["Sales conditions","/admin/sales-conditions","cap: manage_sales_conditions / admin"],
+        ["Bank accounts","/admin/banks","cap: manage_banks / admin"],
+      ]],
+      ["System", [
+        ["Diagnostics","/admin/diagnostics","cap: admin.diagnostics"],
+      ]],
+    ]},
+  ],
+
+  // ---- Transition triggers: who moves each arrow + the guard. ----
+  transitions: [
+    { flow:"Quotation (document)", edges:[
+      ["draft","sent","owner sends the quote","sales (owner)"],
+      ["sent","negotiating","owner updates during talks","sales (owner)"],
+      ["sent / negotiating","won ★ (spawns task list)","owner marks the deal won","sales (owner)"],
+      ["any active","lost","owner marks the deal lost","sales (owner)"],
+      ["any active","cancelled (cascades ↓)","cap: quotation.cancel","sales · TLM · admin · super"],
+    ]},
+    { flow:"Task list", edges:[
+      ["— (quote won)","draft","auto-created from the won quote","system / sales"],
+      ["draft","under_validation","sales submits for factory review","sales (owner)"],
+      ["under_validation","needs_revision","reviewer sends it back","TLM · admin · super"],
+      ["under_validation","validated ★","cap: task_list.validate","TLM · admin · super"],
+      ["validated","production_ready (spawns PO)","cap: task_list.sync_orphans","TLM · admin · super"],
+      ["any active","cancelled (cascades ↓)","cap: task_list.reject","TLM · admin · super"],
+    ]},
+    { flow:"Production order", edges:[
+      ["— (task list validated)","awaiting_deposit","auto-created","system"],
+      ["awaiting_deposit","deposit_received","cap: production_order.edit_payments","TLM · admin · super"],
+      ["awaiting_deposit","in_production (override)","cap: start_without_deposit","admin · super"],
+      ["deposit_received","production_scheduled","cap: set_timeline + edit_status","TLM · admin · super"],
+      ["production_scheduled","in_production","cap: production_order.edit_status","TLM · admin · super"],
+      ["in_production","production_completed","cap: production_order.edit_status","TLM · admin · super"],
+      ["production_completed","shipment_booked → shipped","cap: production_order.edit_shipment","TLM · admin · super"],
+      ["shipped","delivered","cap: production_order.edit_status","TLM · admin · super"],
+    ]},
+    { flow:"Invoicing", edges:[
+      ["quote won","deposit invoice","raise a deposit invoice","finance · sales"],
+      ["deposit paid","balance invoice","raise the balance invoice","finance · sales"],
+      ["invoice","sent → partially_paid → paid","record payments received","finance"],
+    ]},
+    { flow:"Project request", edges:[
+      ["draft","submitted","sales submits the request","sales (owner)"],
+      ["submitted","waiting_director_approval","routed for director sign-off","system"],
+      ["waiting_director_approval","waiting_factory_cost / logistics","director approves → sent to ops","director / admin"],
+      ["ops in progress","ready_for_pricing","ops returns costs & freight","operations"],
+      ["ready_for_pricing","priced → quotation_generated","pricing applied, quote created","sales / admin"],
+    ]},
+  ],
+  transNote:"Invoicing & project-request steps have no dedicated capability in migrations 026/122 — they're gated by role + RLS (finance / operations / director). The 'operations' role uses the production_order.edit_* capabilities where granted; anti-lockout means admins always pass.",
+
+  crosscutting: [
+    ["Permissions matrix","Capability-based access (migrations 026, 067, 122); visibility scopes + team manager rollup (105, 132)."],
+    ["Events & timeline","Polymorphic event log per entity (022, 136); notification rules (123)."],
+    ["Reminders","Quotation reminders (043) and balance/payment reminders (048, 114)."],
+    ["Entity messages","Per-entity conversation threads (049) — attached to docs, task lists, POs."],
+    ["Attachments","Affair-scoped files (060); anchored to the root document id."],
+    ["Costing versions","Cost versions + category margins (084, 086, 140) feed the pricing engine."],
+    ["Cancellation cascade","DB triggers (023): cancel a quotation → cancels its task list + PO (unless delivered/cancelled)."],
+    ["Quotation versioning","root_document_id + version chain (059); forecast dedupes to latest per affair."],
+    ["July 2026 update (m145–148)","client-code dedup (145); shipping insurance & charges columns (146); global document-number counter (147); project.view_overview grant (148)."],
+  ],
+};
+
+/* =========================================================================
+   RENDER — no need to edit below.
+   ========================================================================= */
+const $ = s => document.querySelector(s);
+const tone = t => `var(${TONE[t]||"--t-neutral"})`;
+
+/* ---- Plain-language descriptions (edit freely) ---- */
+const TAB_INFO = {
+  pages:"<b>In plain terms:</b> every screen in the app, sorted into groups by what it's for — think of it as the site map.",
+  flows:"<b>In plain terms:</b> the step-by-step journeys things move through — like a quote turning into a shipped, paid order. Colored stages show progress.",
+  roles:"<b>In plain terms:</b> the types of people who use the app and what each is responsible for, plus the behind-the-scenes systems that run across everything.",
+  data:"<b>In plain terms:</b> the app's filing cabinet — what information gets stored and how the pieces link together.",
+  perms:"<b>In plain terms:</b> a tick-box grid of exactly what each type of user is allowed to do. Green check = allowed, dot = not allowed.",
+  nav:"<b>In plain terms:</b> the actual top menu of the app — every button, where it takes you, and who's allowed to see it.",
+  trans:"<b>In plain terms:</b> for every step in a flow, who is allowed to move it forward and what permission that needs.",
+};
+const PLAIN_AREAS = {
+  "Auth":"The login screen.",
+  "Dashboards & briefing":"Your home screens — a personal to-do view, a morning briefing, and big-picture overviews.",
+  "Prospects & Tenders (pre-sales)":"Where salespeople track potential deals and public tenders before they become real quotes.",
+  "Clients":"The customer address book — who they are, their details, and past invoices.",
+  "Affairs (project container)":"A project folder that keeps everything about one deal — quotes, orders, invoices — in one place.",
+  "Sales & Quotations":"Where salespeople build price quotes and track their numbers.",
+  "Projects (project requests)":"When sales needs help (a factory cost, shipping prices), they raise a request here and it routes to the right team.",
+  "Task lists":"The handover sheet from sales to the factory describing exactly what to build.",
+  "Production":"The factory's view — what's being made, the queue, and quick status updates.",
+  "Order follow-up":"One tracker showing where every live order actually is.",
+  "Invoicing":"Creating deposit and balance invoices and tracking payment.",
+  "Costing & Factory mapping":"Entering product costs and matching your product options to the factory's part numbers.",
+  "Forecast":"A sales pipeline projection for managers.",
+  "Permissions":"Screens for setting who can do what.",
+  "Admin — config":"The settings area — products, prices, categories, banks, users and more.",
+  "API routes":"Behind-the-scenes web addresses the app calls itself (PDFs, downloads, messages) — not screens you click.",
+};
+const PLAIN_FLOWS = {
+  "① Quotation (document)":"A price quote's life: draft → sent → negotiating → won (or lost).",
+  "② Production task list":"The build sheet — sales drafts it, the factory reviews, then it's validated and ready to make.",
+  "③ Production order — payment · production · shipping":"The money-and-making track: waiting for deposit → in production → shipped → delivered.",
+  "④ Invoicing (parallel track)":"Deposit invoice, then balance invoice, until the order is fully paid.",
+  "⑤ Project request":"A request's path from sales, through director approval, the factory, and pricing — until it becomes a quote.",
+  "⑥ Affair (commercial container)":"The whole deal's status, from an early lead all the way to completed.",
+  "⑦ Prospect / Tender pipeline (pre-sales)":"How early leads and tenders progress before they turn into real quotes.",
+  "⑧ Order-in-flight (unified 6-phase view)":"The simple 6-step summary everyone sees at a glance.",
+};
+
+// tabs
+const views=[["pages","Pages"],["flows","Flows"],["roles","Roles & systems"],["data","Data model"],["perms","Permissions"],["nav","Navigation"],["trans","Transitions"]];
+const tabs=$("#tabs");
+views.forEach(([k,label],i)=>{
+  const b=document.createElement("div");
+  b.className="tab"+(i===0?" active":""); b.textContent=label;
+  b.onclick=()=>{
+    document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+    b.classList.add("active");
+    views.forEach(([kk])=>$("#view-"+kk).classList.add("hidden"));
+    $("#view-"+k).classList.remove("hidden");
+    history.replaceState(null,"","#"+k);
+  };
+  tabs.appendChild(b);
+});
+
+// deep-link: open the tab named in the URL hash (e.g. Solux_Application_Map.html#perms)
+(function openHashTab(){
+  const k=(location.hash||"").slice(1);
+  if(!k) return;
+  const i=views.findIndex(v=>v[0]===k);
+  if(i>=0) document.querySelectorAll(".tab")[i].click();
+})();
+
+// plain-language intro at the top of every tab
+Object.entries(TAB_INFO).forEach(([k,txt])=>{
+  const sec=$("#view-"+k); if(!sec) return;
+  const h2=sec.querySelector("h2");
+  const intro=document.createElement("div"); intro.className="tabintro"; intro.innerHTML=txt;
+  h2.insertAdjacentElement("afterend", intro);
+});
+
+// page inventory
+let totalPages=0;
+const areasEl=$("#areas");
+DATA.areas.forEach(a=>{
+  totalPages += a.pages.length;
+  const el=document.createElement("div"); el.className="area";
+  el.innerHTML=`<h3><span class="dot" style="background:${a.color}"></span>${a.name}
+      <span class="count">${a.pages.length}</span></h3>
+    ${PLAIN_AREAS[a.name]?`<div class="plain">${PLAIN_AREAS[a.name]}</div>`:""}
+    <div class="role">${a.role}</div>`;
+  a.pages.forEach(([path,desc])=>{
+    const wip = /WIP/.test(desc);
+    const row=document.createElement("div"); row.className="pg";
+    row.innerHTML=`<code>${path}</code><span>${desc}</span>`;
+    if(wip) row.querySelector("span").style.color="#d1495b";
+    el.appendChild(row);
+  });
+  areasEl.appendChild(el);
+});
+$("#pgcount").textContent = totalPages + " pages across " + DATA.areas.length + " areas";
+
+// legend
+const legend=$("#legend");
+[["neutral","not started / idle"],["sky","in progress"],["amber","waiting / attention"],
+ ["violet","shipping"],["emerald","success / done"],["red","dead / blocked"]].forEach(([t,l])=>{
+  const s=document.createElement("span");
+  s.innerHTML=`<span class="sw" style="background:${tone(t)}"></span>${l}`;
+  legend.appendChild(s);
+});
+
+// flows
+const flowsEl=$("#flows");
+DATA.flows.forEach(f=>{
+  const el=document.createElement("div"); el.className="flow";
+  el.innerHTML=`<h3>${f.name}</h3>
+    ${PLAIN_FLOWS[f.name]?`<div class="plain">${PLAIN_FLOWS[f.name]}</div>`:""}
+    <div class="meta">${f.meta}</div>`;
+  const steps=document.createElement("div"); steps.className="steps";
+  f.steps.forEach((st,i)=>{
+    const [label,t,term]=st;
+    if(i>0){ const ar=document.createElement("span"); ar.className="arrow"; ar.textContent="→"; steps.appendChild(ar); }
+    const c=document.createElement("span");
+    c.className="chip b"+(term?" term":"");
+    c.style.color=tone(t);
+    c.style.borderColor=tone(t);
+    c.textContent=label;
+    steps.appendChild(c);
+  });
+  el.appendChild(steps);
+  flowsEl.appendChild(el);
+});
+
+// roles + crosscutting
+const rolesEl=$("#roles");
+let html=`<table><thead><tr><th style="width:210px">Role</th><th>Scope</th></tr></thead><tbody>`;
+DATA.roles.forEach(([r,d])=>html+=`<tr><td><code>${r}</code></td><td>${d}</td></tr>`);
+html+=`</tbody></table><h2>Cross-cutting systems</h2><p class="note">These touch every flow.</p>
+  <table><thead><tr><th style="width:210px">System</th><th>What it does</th></tr></thead><tbody>`;
+DATA.crosscutting.forEach(([s,d])=>html+=`<tr><td><b>${s}</b></td><td>${d}</td></tr>`);
+html+=`</tbody></table>`;
+rolesEl.innerHTML=html;
+
+// data model — entities
+let totalEnt=0;
+const entEl=$("#entities");
+DATA.entities.forEach(g=>{
+  totalEnt += g.tables.length;
+  const el=document.createElement("div"); el.className="area";
+  el.innerHTML=`<h3><span class="dot" style="background:${g.color}"></span>${g.domain}
+      <span class="count">${g.tables.length}</span></h3>`;
+  g.tables.forEach(([t,fk])=>{
+    const row=document.createElement("div"); row.className="pg";
+    row.innerHTML=`<code>${t}</code><span>${fk}</span>`;
+    el.appendChild(row);
+  });
+  entEl.appendChild(el);
+});
+$("#entcount").textContent = totalEnt + " tables shown across " + DATA.entities.length + " domains";
+
+// data model — relationships
+const relsEl=$("#rels");
+const rf=document.createElement("div"); rf.className="flow";
+DATA.relationships.forEach(r=>{
+  const line=document.createElement("div"); line.className="steps"; line.style.marginBottom="8px";
+  r.split(" → ").forEach((part,i)=>{
+    if(i>0){ const ar=document.createElement("span"); ar.className="arrow"; ar.textContent="→"; line.appendChild(ar); }
+    const c=document.createElement("span"); c.className="chip"; c.textContent=part; line.appendChild(c);
+  });
+  rf.appendChild(line);
+});
+relsEl.appendChild(rf);
+
+// permissions matrix
+const permsEl=$("#perms");
+let cats={};
+DATA.capabilities.forEach(c=>{ (cats[c[0]] ||= []).push(c); });
+let ph=`<table><thead><tr><th style="width:280px">Capability</th>`;
+DATA.permRoles.forEach(r=>ph+=`<th style="text-align:center">${r}</th>`);
+ph+=`</tr></thead><tbody>`;
+Object.keys(cats).forEach(cat=>{
+  ph+=`<tr><td colspan="${DATA.permRoles.length+1}" style="background:#faf7ef;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:#8a6d1e">${cat}</td></tr>`;
+  cats[cat].forEach(([,key,vals])=>{
+    ph+=`<tr><td><code>${key}</code></td>`;
+    vals.forEach(v=>ph+=`<td style="text-align:center;color:${v?"var(--t-emerald)":"#c9c9c2"};font-weight:${v?700:400}">${v?"✓":"·"}</td>`);
+    ph+=`</tr>`;
+  });
+});
+ph+=`</tbody></table><p class="note" style="margin-top:12px">${DATA.permNote}</p>`;
+permsEl.innerHTML=ph;
+
+// navigation graph
+let navItems=0;
+const navEl=$("#nav");
+DATA.nav.forEach(c=>{
+  const el=document.createElement("div"); el.className="area";
+  el.innerHTML=`<h3><span class="dot" style="background:${c.color}"></span>${c.cat}
+      <span class="count"><code style="font-size:11px">${c.href}</code></span></h3>`;
+  c.groups.forEach(([gt,items])=>{
+    const gh=document.createElement("div");
+    gh.className="role"; gh.style.marginTop="8px"; gh.style.fontWeight="600"; gh.textContent=gt;
+    el.appendChild(gh);
+    items.forEach(([label,route,guard])=>{
+      navItems++;
+      const row=document.createElement("div"); row.className="pg";
+      const always = guard==="always";
+      row.innerHTML=`<code>${route}</code>
+        <span><b>${label}</b> · <span style="color:${always?"#9a9a92":"#b06a1e"}">${guard}</span></span>`;
+      el.appendChild(row);
+    });
+  });
+  navEl.appendChild(el);
+});
+$("#navcount").textContent = navItems + " links across " + DATA.nav.length + " menus";
+
+// transition triggers
+const transEl=$("#trans");
+DATA.transitions.forEach(t=>{
+  const el=document.createElement("div"); el.className="flow";
+  el.innerHTML=`<h3>${t.flow}</h3>`;
+  let tb=`<table style="margin-top:8px"><thead><tr>
+      <th style="width:200px">From → To</th><th>Trigger</th><th style="width:220px">Who</th></tr></thead><tbody>`;
+  t.edges.forEach(([from,to,trig,who])=>{
+    tb+=`<tr>
+      <td><span style="color:var(--muted)">${from}</span> → <b>${to}</b></td>
+      <td>${trig}</td>
+      <td><span style="color:var(--accent)">${who}</span></td></tr>`;
+  });
+  tb+=`</tbody></table>`;
+  el.insertAdjacentHTML("beforeend", tb);
+  transEl.appendChild(el);
+});
+transEl.insertAdjacentHTML("beforeend", `<p class="note">${DATA.transNote}</p>`);
+
+// footer
+$("#foot").textContent = "Generated from the Solux by Mehdi_K-edit codebase · sources: app/ routes, lib/types.ts, lib/lifecycle.ts, lib/invoicing.ts, supabase/migrations. Edit the DATA object to keep this current.";
+</script>
+</body>
+</html>
