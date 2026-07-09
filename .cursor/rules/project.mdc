@@ -8,6 +8,11 @@ Always check before working:
 - DECISIONS.md
 - TASKS.md
 
+Also read (implementation truth):
+- docs/ai/00_AI_INDEX.md and the files it links (ARCHITECTURE.md, FOLDER_STRUCTURE.md, etc.)
+
+Keep .cursor/rules/project.mdc and CLAUDE.md consistent — update both when the doc sources change.
+
 ## Code Rules
 - HTML project - keep it HTML-first
 - Match existing style from Style_Guide.html
